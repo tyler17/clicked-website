@@ -89,6 +89,22 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+            <div ng-app="" ng-init="questions=['question 1','im confused','question mark???']" >
+
+                <div class="well" ng-repeat="q in questions">
+                    <a href="post.html">
+                        <h4 class="post-title">
+                            {{ q }}
+                        </h4>
+                    </a>
+                    <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:54 PM</p>
+                </div>
+
+            </div>
+
+            <!-- 
+
                 <div class="well">
                     <a href="post.html">
                         <h4 class="post-title">
@@ -161,6 +177,8 @@
                     <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:01 PM</p>
                 </div>                
                 <hr>
+
+                -- >
             </div>
         </div>
     </div>
@@ -198,7 +216,7 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Your Website 2014</p>
+                    <p class="copyright text-muted">Copyright &copy; clickED 2016</p>
                 </div>
             </div>
         </div>
@@ -212,6 +230,9 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
+
+    <!-- AngularJS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
 </body>
 
