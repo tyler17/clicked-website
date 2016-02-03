@@ -22,6 +22,9 @@
     <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
+    <!-- Parse -->
+    <script src="http://www.parsecdn.com/js/parse-1.6.14.min.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -90,7 +93,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-            <div ng-app="" ng-init="questions=['question 1','im confused','question mark???']" >
+            <div ng-app="">
 
                 <div class="well" ng-repeat="q in questions">
                     <a href="post.html">
@@ -104,82 +107,6 @@
 
             </div>
 
-            <!-- 
-
-                <div class="well">
-                    <a href="post.html">
-                        <h4 class="post-title">
-                            What is the pythagorean theorem?
-                        </h4>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:54 PM</p>
-                </div>
-                <hr>
-                <div class="well">
-                    <a href="post.html">
-                        <h4 class="post-title">
-                            Who is Copernicus?
-                        </h4>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:46 PM</p>
-                </div>
-                <hr>
-                <div class="well">
-                    <a href="post.html">
-                        <h4 class="post-title">
-                            Where is Istanbul?
-                        </h4>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:38 PM</p>
-                </div>
-                <hr>
-                <div class="well">
-                    <a href="post.html">
-                        <h4 class="post-title">
-                            What is resistance?
-                        </h4>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:31 PM</p>
-                </div>                
-                <hr>
-                <div class="well">
-                    <a href="post.html">
-                        <h4 class="post-title">
-                            What is the pythagorean theorem?
-                        </h4>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:24 PM</p>
-                </div>
-                <hr>
-                <div class="well">
-                    <a href="post.html">
-                        <h4 class="post-title">
-                            Who is Copernicus?
-                        </h4>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:16 PM</p>
-                </div>
-                <hr>
-                <div class="well">
-                    <a href="post.html">
-                        <h4 class="post-title">
-                            Where is Istanbul?
-                        </h4>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:08 PM</p>
-                </div>
-                <hr>
-                <div class="well">
-                    <a href="post.html">
-                        <h4 class="post-title">
-                            What is resistance?
-                        </h4>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:01 PM</p>
-                </div>                
-                <hr>
-
-                -- >
             </div>
         </div>
     </div>
@@ -234,6 +161,27 @@
 
     <!-- AngularJS -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <!-- javascript for parse -->
+    <script>
+        Parse.initialize("3r4Ojai6mYESGymkDVf48wzZDIuBPaF9J0CHCCS7", "I2IBiCAt0Tf0lrXiX8MoMvpwbzIEyjz3Td8GrLYC");
+        var Question = Parse.Object.extend("Question");
+        var query = new Parse.Query(Question);
+        query.descending("TimeSent");
+        query.find({
+          success: function(results) {
+            
+            //need to set up this first: https://docs.angularjs.org/guide/controller
+            $scope.questions = results;//save results
+
+          },
+          error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
+          }
+        });
+
+    </script>
+    
 
 </body>
 
