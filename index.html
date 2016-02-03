@@ -93,8 +93,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-            <div ng-app="">
-
+            <div ng-app="myApp" ng-controller="QuestionController">
                 <div class="well" ng-repeat="q in questions">
                     <a href="post.html">
                         <h3 class="post-title">
@@ -104,7 +103,6 @@
                     <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:54 PM</p>
                     <input style="width:100%" type="text" placeholder="Send a response" name="teacher_response"></input>
                 </div>
-
             </div>
 
             </div>
@@ -164,21 +162,30 @@
 
     <!-- javascript for parse -->
     <script>
-        Parse.initialize("3r4Ojai6mYESGymkDVf48wzZDIuBPaF9J0CHCCS7", "I2IBiCAt0Tf0lrXiX8MoMvpwbzIEyjz3Td8GrLYC");
-        var Question = Parse.Object.extend("Question");
-        var query = new Parse.Query(Question);
-        query.descending("TimeSent");
-        query.find({
-          success: function(results) {
-            
-            //need to set up this first: https://docs.angularjs.org/guide/controller
-            $scope.questions = results;//save results
+        var app = angular.module('myApp',[]);
+        app.controller('QuestionController', ['$scope', function($scope) {
+      
+            Parse.initialize("3r4Ojai6mYESGymkDVf48wzZDIuBPaF9J0CHCCS7", "I2IBiCAt0Tf0lrXiX8MoMvpwbzIEyjz3Td8GrLYC");
+            var Question = Parse.Object.extend("Question");
+            var query = new Parse.Query(Question);
+            query.descending("TimeSent");
+            query.find({
+              success: function(results) {
+                
+                $scope.questions=[];
+                for (i=0; i < results.length; i++){
+                    $scope.questions.push(results[i].get("Content"));
+                }
 
-          },
-          error: function(error) {
-            alert("Error: " + error.code + " " + error.message);
-          }
-        });
+              },
+              error: function(error) {
+                alert("Error: " + error.code + " " + error.message);
+              }
+            });
+
+        }]);
+
+        
 
     </script>
     
