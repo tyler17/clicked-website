@@ -94,13 +94,13 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
             <div ng-app="myApp" ng-controller="QuestionController">
-                <div class="well" ng-repeat="q in questions">
+                <div class="well" ng-repeat="q in questions track by $index">
                     <a href="post.html">
                         <h3 class="post-title">
-                            {{ q }}
+                            {{ q.txt }}
                         </h3>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">Johnny Appleseed</a> at 12:54 PM</p>
+                    <p class="post-meta">Posted by <a href="#">{{q.usr}}</a> at {{q.tim}} on {{q.dat}}</p>
                     <input style="width:100%" type="text" placeholder="Send a response" name="teacher_response"></input>
                 </div>
             </div>
@@ -164,24 +164,34 @@
     <script>
         var app = angular.module('myApp',[]);
         app.controller('QuestionController', ['$scope', function($scope) {
-      
             Parse.initialize("3r4Ojai6mYESGymkDVf48wzZDIuBPaF9J0CHCCS7", "I2IBiCAt0Tf0lrXiX8MoMvpwbzIEyjz3Td8GrLYC");
             var Question = Parse.Object.extend("Question");
             var query = new Parse.Query(Question);
             query.descending("TimeSent");
+            $scope.questions=[];
+
             query.find({
               success: function(results) {
-                
-                $scope.questions=[];
-                for (i=0; i < results.length; i++){
-                    $scope.questions.push(results[i].get("Content"));
+                for (var i=0; i < results.length; i++){
+                    var result = [];
+                    result.txt = results[i].get("Content");
+                    result.usr = results[i].get("MessageSender");
+                    result.tim = results[i].get("TimeSent");
+                    result.dat = results[i].get("DateSent");                                        
+                    $scope.questions.push(result);
+                    console.log($scope.questions[i]);
+
                 }
+                console.log($scope.questions);
+                $scope.$apply();
 
               },
               error: function(error) {
+                console.log('error');
                 alert("Error: " + error.code + " " + error.message);
               }
             });
+            console.log($scope.questions);
 
         }]);
 
