@@ -55,7 +55,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-repeat="f in filters track by $index">
-                        <a href="index.html">{{f}}</a>
+                        <a ng-click="changeFilt(f)">{{f.name}}</a>
                     </li>
                     <!--
                     <li>
@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                      <div class="site-heading"> 
-                        <h2 style="font-size:50px">{{curFilt}}</h2>
+                        <h2 style="font-size:50px">{{curFilt.name}}</h2>
                         <hr class="small">
                         <span class="subheading">Question Feed</span>
                     </div>
@@ -169,17 +169,38 @@
  
         app.controller('QuestionController', ['$scope', function($scope) {
             $scope.teacherID = 12345; //undo hardcode later
-            $scope.curFilt = "Show All"; //default show all classes
+            var showAll = [];
+            showAll.name = "Show All";
+            showAll.id = -1;
+            $scope.curFilt = showAll; //default show all classes
+
+            $scope.changeFilt = function(filt) {
+                $scope.curFilt = filt;
+                $scope.questions = [];
+                for (var i=0; i < $scope.allQuestions.length; i++){
+                    var question = $scope.allQuestions[i];
+
+                    console.log('jajaja');
+                    if(question.cc === filt.id || filt.id === -1){
+                        $scope.questions.push(question);
+                    }
+                    
+                }
+                //$scope.$apply();
+            }
 
             var Class = Parse.Object.extend("Class");
             var query2 = new Parse.Query(Class);
             $scope.filters=[];
-            $scope.filters.push("Show All");
+            $scope.filters.push(showAll);
             query2.find({
                 success: function(classes) {
                 for (var i=0; i < classes.length; i++){
                     if(classes[i].get("TeacherID") === $scope.teacherID){
-                        $scope.filters.push(classes[i].get("ClassName"));
+                        var result = [];
+                        result.name = classes[i].get("ClassName");
+                        result.id = classes[i].get("ClassCode");
+                        $scope.filters.push(result);
                     }
                 }
                 $scope.$apply();
@@ -194,21 +215,25 @@
             var Question = Parse.Object.extend("Question");
             var query = new Parse.Query(Question);
             query.descending("TimeSent");
+            $scope.allQuestions=[];
             $scope.questions=[];
 
             query.find({
               success: function(results) {
                 for (var i=0; i < results.length; i++){
-                    if(results[i].get("ClassCode") === 17061 || $scope.curFilt === "Show All"){
-                        var result = [];
-                        result.txt = results[i].get("Content");
-                        result.usr = results[i].get("MessageSender");
-                        result.tim = results[i].get("TimeSent");
-                        result.dat = results[i].get("DateSent");
+                    var result = [];
+                    result.txt = results[i].get("Content");
+                    result.usr = results[i].get("MessageSender");
+                    result.tim = results[i].get("TimeSent");
+                    result.dat = results[i].get("DateSent");
+                    result.cc = results[i].get("ClassCode");
 
+                    $scope.allQuestions.push(result);
+                    console.log($scope.questions[i]);
+                    if(result.cc === 17061 || $scope.curFilt.id === -1){
                         $scope.questions.push(result);
-                        console.log($scope.questions[i]);
                     }
+                    
                 }
                 console.log($scope.questions);
                 $scope.$apply();
