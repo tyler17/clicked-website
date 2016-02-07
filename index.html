@@ -54,8 +54,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li style="cursor:pointer" ng-repeat="f in filters track by $index">
-                        <a ng-click="changeFilt(f)">{{f.name}}</a>
+                    <li style="cursor:pointer" class="class-selection" ng-repeat="f in filters track by $index">
+                        <a style="font-size:20px" ng-click="changeFilt(f)">{{f.name}}</a>
                     </li>
                     <!--
                     <li>
@@ -81,10 +81,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                     <div class="site-heading"> 
-                        <h2 style="font-size:50px">{{curFilt.name}}</h2>
-                        <hr class="small">
-                        <span class="subheading">Question Feed</span>
+                     <!-- <div class="site-heading">  -->
+                     <div style="text-align:center"class="site-heading-clicked">
+                        <h1> clickED</h1>
                     </div>
                 </div>
             </div>
@@ -95,7 +94,15 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Unanswered
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> All
+                  </label>
+                </div>
+                <button style="float: right" class="btn btn"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
                 <div class="well" ng-repeat="q in questions track by $index">
                     <a>
                         <h3 class="post-title">
@@ -170,7 +177,7 @@
         app.controller('QuestionController', ['$scope', function($scope) {
             $scope.teacherID = 12345; //undo hardcode later
             var showAll = [];
-            showAll.name = "Show All";
+            showAll.name = "All Classes";
             showAll.id = -1;
             $scope.curFilt = showAll; //default show all classes
 
