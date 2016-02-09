@@ -110,7 +110,7 @@
                         </h3>
                     </a>
                     <p class="post-meta">Posted by <a href="#">{{q.usr}}</a> at {{q.tim}} on {{q.dat}}</p>
-                    <input style="width:100%" type="text" placeholder="Send a response" name="teacher_response"></input>
+                    <!--<input style="width:100%" type="text" placeholder="Send a response" name="teacher_response"></input>-->
                 </div>
 
             </div>
@@ -187,7 +187,8 @@
                 for (var i=0; i < $scope.allQuestions.length; i++){
                     var question = $scope.allQuestions[i];
 
-                    console.log('jajaja');
+                    console.log(filt.id);
+		    console.log(question.cc);
                     if(question.cc === filt.id || filt.id === -1){
                         $scope.questions.push(question);
                     }
@@ -203,10 +204,10 @@
             query2.find({
                 success: function(classes) {
                 for (var i=0; i < classes.length; i++){
-                    if(classes[i].get("TeacherID") === $scope.teacherID){
+                    if(true) {//classes[i].get("TeacherID") === $scope.teacherID){
                         var result = [];
                         result.name = classes[i].get("ClassName");
-                        result.id = classes[i].get("ClassCode");
+                        result.id = classes[i].id;
                         $scope.filters.push(result);
                     }
                 }
@@ -233,10 +234,10 @@
                     result.usr = results[i].get("MessageSender");
                     result.tim = results[i].get("TimeSent");
                     result.dat = results[i].get("DateSent");
-                    result.cc = results[i].get("ClassCode");
-
+                    result.cc = results[i].get("ClassID");
+		    console.log(result.cc);
                     $scope.allQuestions.push(result);
-                    console.log($scope.questions[i]);
+                    console.log($scope.allQuestions[i]);
                     if(result.cc === 17061 || $scope.curFilt.id === -1){
                         $scope.questions.push(result);
                     }
