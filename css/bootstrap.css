@@ -3029,6 +3029,7 @@ select[multiple].form-group-lg .form-control {
   outline: 0;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
           box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+  background-color: gray;
 }
 .btn.disabled,
 .btn[disabled],
@@ -3051,9 +3052,9 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-  color: #333;
-  background-color: #e6e6e6;
-  border-color: #adadad;
+  color: #56c37f;
+  background-color: #56c37f;
+  border-color: #56c37f;
 }
 .btn-default:active,
 .btn-default.active,
@@ -3078,8 +3079,8 @@ fieldset[disabled] .btn-default:active,
 .btn-default.disabled.active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
-  background-color: #fff;
-  border-color: #ccc;
+  background-color: #56c37f;
+  border-color: #56c37f;
 }
 .btn-default .badge {
   color: #fff;
