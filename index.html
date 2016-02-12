@@ -175,12 +175,20 @@
 
         Parse.initialize("3r4Ojai6mYESGymkDVf48wzZDIuBPaF9J0CHCCS7", "I2IBiCAt0Tf0lrXiX8MoMvpwbzIEyjz3Td8GrLYC");
 
+        /*
+        var callRefresh = function() {
+            console.log("still here");
+        }
 
         window.onload = function() {
             setTimeout(function () {
-                location.reload();
-            }, 20000);
+                console.log("HERE!");
+                callRefresh();
+                console.log("HERE!");
+
+            }, 5000);
         }
+        */
  
         app.controller('QuestionController', ['$scope', function($scope) {
             $scope.teacherID = 12345; //undo hardcode later
@@ -202,8 +210,6 @@
                 for (var i=0; i < $scope.allQuestions.length; i++){
                     var question = $scope.allQuestions[i];
 
-                    console.log(filt.id);
-		    console.log(question.cc);
                     if(question.cc === filt.id || filt.id === -1){
                         if($scope.answered === question.answered) {
                             $scope.questions.push(question);
@@ -256,9 +262,7 @@
                         result.dat = results[i].get("DateSent");
                         result.cc = results[i].get("ClassID");
                         result.answered = results[i].get("Addressed");
-    		            console.log(result.cc);
                         $scope.allQuestions.push(result);
-                        console.log($scope.allQuestions[i]);
                         /*if(result.cc === 17061 || $scope.curFilt.id === -1){
                             if($scope.answered === result.answered) {
                                 console.log("answered: " + result.answered);
@@ -268,7 +272,6 @@
                         $scope.changeFilt($scope.curFilt);
                         
                     }
-                    console.log($scope.questions);
                     $scope.$apply();
 
                   },
@@ -277,10 +280,9 @@
                     alert("Error: " + error.code + " " + error.message);
                   }
                 });
-                console.log($scope.questions);
             };
             getQuestions();
-
+            callRefresh = getQuestions;
 
 
             var changeView = function(answered) {
