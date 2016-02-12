@@ -79,11 +79,11 @@
     <!-- Set your background image for this header on the line below. -->
     <header class="intro-header" style="background-image: url('img/green-row.png')">
         <div class="container">
-            <div class="row">
+            <div style="padding: 20px"class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                      <!-- <div class="site-heading">  -->
                      <div style="text-align:center"class="site-heading-clicked">
-                        <h1> clickED</h1>
+                        <h1> </h1>
                     </div>
                 </div>
             </div>
@@ -96,20 +96,20 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="btn-group" data-toggle="buttons">
                   <label class="btn btn-default active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Unanswered
+                    <input type="radio" ng-model="value" value="false" ng-change="answered(value)" name="options" id="option1" checked> Unanswered
                   </label>
                   <label class="btn btn-default">
-                    <input type="radio" name="options" id="option2" autocomplete="off"> All
+                    <input type="radio" name="options" ng-model="value" value="true" ng-change="answered(value)" id="option2"> Answered
                   </label>
                 </div>
                 <button style="float: right" ng-click="refresh()" class="btn btn"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
                 <div class="well" ng-repeat="q in questions track by $index">
-                    <a>
+                    <div>
                         <h3 class="post-title">
                             {{ q.txt }}
                         </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">{{q.usr}}</a> at {{q.tim}} on {{q.dat}}</p>
+                    </div>
+                    <p class="post-meta">Posted by <span href="#">{{q.usr}}</span> at {{q.tim}} on {{q.dat}}</p>
                     <!--<input style="width:100%" type="text" placeholder="Send a response" name="teacher_response"></input>-->
                 </div>
 
@@ -190,7 +190,28 @@
 
             $scope.refresh = function (){
                 location.reload();
+
             }
+
+            $scope.value = "haha";
+
+            $scope.answered = function(value) {
+                console.log(value);
+                /*
+                $scope.curFilt = filt;
+                $scope.questions = [];
+                for (var i=0; i < $scope.allQuestions.length; i++){
+                    var question = $scope.allQuestions[i];
+
+                    console.log(filt.id);
+            console.log(question.cc);
+                    if(question.cc === filt.id || filt.id === -1){
+                        $scope.questions.push(question);
+                    }
+                    
+                }*/
+                //$scope.$apply();
+            }            
 
             $scope.changeFilt = function(filt) {
                 $scope.curFilt = filt;
