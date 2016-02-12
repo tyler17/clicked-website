@@ -261,7 +261,7 @@
 
                 var Question = Parse.Object.extend("Question");
                 var query = new Parse.Query(Question);
-                query.descending("TimeSent");
+                query.descending("updatedAt");
                 $scope.allQuestions=[];
                 $scope.questions=[];
 
@@ -269,6 +269,7 @@
                   success: function(results) {
                     for (var i=0; i < results.length; i++){
                         var result = [];
+                        if(i===0) console.log();
                         result.txt = results[i].get("Content");
                         result.usr = results[i].get("MessageSender");
                         result.tim = results[i].get("TimeSent");
@@ -296,7 +297,13 @@
                 });
             };
             getQuestions();
-            callRefresh = getQuestions;
+            var recursiveTime = function myself () {
+                setTimeout(function () {
+                    getQuestions();
+                    console.log("refreshed");
+                    myself();
+                }, 2000);
+            }();
 
 
             var changeView = function(answered) {
