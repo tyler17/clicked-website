@@ -95,13 +95,14 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="btn-group" data-toggle="buttons">
-                  <label class="btn btn-default active">
-                    <input type="radio" ng-model="value" value="false" ng-change="answered(value)" name="options" id="option1" checked> Unanswered
+                  <label ng-click='viewAnswered()'class="btn btn-default active">
+                    <input type="radio" ng-model="value" value="foo" ng-change='newValue(value)' name="options" id="option1" checked> Unanswered
                   </label>
-                  <label class="btn btn-default">
-                    <input type="radio" name="options" ng-model="value" value="true" ng-change="answered(value)" id="option2"> Answered
+                  <label ng-click='viewUnanswered()' class="btn btn-default">
+                    <input type="radio" name="options" id="option2"> Answered
                   </label>
                 </div>
+                
                 <button style="float: right" ng-click="refresh()" class="btn btn"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
                 <div class="well" ng-repeat="q in questions track by $index">
                     <div>
@@ -186,32 +187,14 @@
             var showAll = [];
             showAll.name = "All Classes";
             showAll.id = -1;
+            //showAll.answered = true;
             $scope.curFilt = showAll; //default show all classes
+            $scope.answered = true; //only show unanswered
+
 
             $scope.refresh = function (){
-                location.reload();
-
-            }
-
-            $scope.value = "haha";
-
-            $scope.answered = function(value) {
-                console.log(value);
-                /*
-                $scope.curFilt = filt;
-                $scope.questions = [];
-                for (var i=0; i < $scope.allQuestions.length; i++){
-                    var question = $scope.allQuestions[i];
-
-                    console.log(filt.id);
-            console.log(question.cc);
-                    if(question.cc === filt.id || filt.id === -1){
-                        $scope.questions.push(question);
-                    }
-                    
-                }*/
-                //$scope.$apply();
-            }            
+                getQuestions();
+            }          
 
             $scope.changeFilt = function(filt) {
                 $scope.curFilt = filt;
@@ -222,12 +205,15 @@
                     console.log(filt.id);
 		    console.log(question.cc);
                     if(question.cc === filt.id || filt.id === -1){
-                        $scope.questions.push(question);
+                        if($scope.answered === question.answered) {
+                            $scope.questions.push(question);
+                        }
                     }
                     
                 }
                 //$scope.$apply();
             }
+  
 
             var Class = Parse.Object.extend("Class");
             var query2 = new Parse.Query(Class);
@@ -252,39 +238,67 @@
                 }
             });
 
-            var Question = Parse.Object.extend("Question");
-            var query = new Parse.Query(Question);
-            query.descending("TimeSent");
-            $scope.allQuestions=[];
-            $scope.questions=[];
+            var getQuestions = function() {
 
-            query.find({
-              success: function(results) {
-                for (var i=0; i < results.length; i++){
-                    var result = [];
-                    result.txt = results[i].get("Content");
-                    result.usr = results[i].get("MessageSender");
-                    result.tim = results[i].get("TimeSent");
-                    result.dat = results[i].get("DateSent");
-                    result.cc = results[i].get("ClassID");
-		    console.log(result.cc);
-                    $scope.allQuestions.push(result);
-                    console.log($scope.allQuestions[i]);
-                    if(result.cc === 17061 || $scope.curFilt.id === -1){
-                        $scope.questions.push(result);
+                var Question = Parse.Object.extend("Question");
+                var query = new Parse.Query(Question);
+                query.descending("TimeSent");
+                $scope.allQuestions=[];
+                $scope.questions=[];
+
+                query.find({
+                  success: function(results) {
+                    for (var i=0; i < results.length; i++){
+                        var result = [];
+                        result.txt = results[i].get("Content");
+                        result.usr = results[i].get("MessageSender");
+                        result.tim = results[i].get("TimeSent");
+                        result.dat = results[i].get("DateSent");
+                        result.cc = results[i].get("ClassID");
+                        result.answered = results[i].get("Addressed");
+    		            console.log(result.cc);
+                        $scope.allQuestions.push(result);
+                        console.log($scope.allQuestions[i]);
+                        /*if(result.cc === 17061 || $scope.curFilt.id === -1){
+                            if($scope.answered === result.answered) {
+                                console.log("answered: " + result.answered);
+                                $scope.questions.push(result);
+                            }
+                        }*/
+                        $scope.changeFilt($scope.curFilt);
+                        
                     }
-                    
-                }
-                console.log($scope.questions);
-                $scope.$apply();
+                    console.log($scope.questions);
+                    $scope.$apply();
 
-              },
-              error: function(error) {
-                console.log('error');
-                alert("Error: " + error.code + " " + error.message);
-              }
-            });
-            console.log($scope.questions);
+                  },
+                  error: function(error) {
+                    console.log('error');
+                    alert("Error: " + error.code + " " + error.message);
+                  }
+                });
+                console.log($scope.questions);
+            };
+            getQuestions();
+
+
+
+            var changeView = function(answered) {
+                $scope.answered = answered;
+                console.log("changeview " + answered);
+                
+                $scope.questions = [];
+                $scope.changeFilt($scope.curFilt);
+                //$scope.$apply();
+            }
+            $scope.viewUnanswered = function() {
+                console.log("false");
+                changeView(false);
+            }
+            $scope.viewAnswered = function() {
+                console.log("true");
+                changeView(true);
+            }  
 
         }]);
 
