@@ -95,10 +95,10 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="btn-group" data-toggle="buttons">
-                  <label ng-click='viewAnswered()'class="btn btn-default active">
+                  <label ng-click='viewUnanswered()'class="btn btn-default active">
                     <input type="radio" ng-model="value" value="foo" ng-change='newValue(value)' name="options" id="option1" checked> Unanswered
                   </label>
-                  <label ng-click='viewUnanswered()' class="btn btn-default">
+                  <label ng-click='viewAnswered()' class="btn btn-default">
                     <input type="radio" name="options" id="option2"> Answered
                   </label>
                 </div>
@@ -110,7 +110,9 @@
                             {{ q.txt }}
                         </h3>
                     </div>
-                    <p class="post-meta">Posted by <span href="#">{{q.usr}}</span> at {{q.tim}} on {{q.dat}}</p>
+                    <p class="post-meta">Posted by <span href="#">{{q.usr}}</span> at {{q.tim}} on {{q.dat}}
+                        <button style="float: right" ng-hide="q.answered" ng-click="addressQuestion(q)" class="btn btn">Mark As Addressed</button>
+                    </p>
                     <!--<input style="width:100%" type="text" placeholder="Send a response" name="teacher_response"></input>-->
                 </div>
 
@@ -197,12 +199,23 @@
             showAll.id = -1;
             //showAll.answered = true;
             $scope.curFilt = showAll; //default show all classes
-            $scope.answered = true; //only show unanswered
+            $scope.answered = false; //only show unanswered
 
 
             $scope.refresh = function (){
                 getQuestions();
             }          
+
+            $scope.addressQuestion = function(q){
+                parseQ = q.parseObject;
+                parseQ.save(null, {
+                    success: function(parseQ){
+                        parseQ.set("Addressed", true);
+                        parseQ.save();
+                    }
+                });
+
+            }
 
             $scope.changeFilt = function(filt) {
                 $scope.curFilt = filt;
@@ -262,6 +275,7 @@
                         result.dat = results[i].get("DateSent");
                         result.cc = results[i].get("ClassID");
                         result.answered = results[i].get("Addressed");
+                        result.parseObject = results[i];
                         $scope.allQuestions.push(result);
                         /*if(result.cc === 17061 || $scope.curFilt.id === -1){
                             if($scope.answered === result.answered) {
