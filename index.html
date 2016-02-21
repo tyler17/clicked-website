@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="cs194hApp" ng-controller="MainController">
 
 <head>
 
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>clickED - Teacher</title>
+    <title>{{main.title || "clickED - Teacher"}}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -25,6 +25,15 @@
     <!-- Parse -->
     <script src="http://www.parsecdn.com/js/parse-1.6.14.min.js"></script>
 
+        <!-- AngularJS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <!--<script src="./node_modules/angular/angular.js" type="text/javascript" ></script>-->
+
+    <!--<script src="node_modules/angular-route/angular-route.js"></script>-->
+
+    <script src="mainController.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,7 +45,7 @@
 
 <body>
 
-<div ng-app="myApp" ng-controller="QuestionController">
+<div>
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
@@ -101,6 +110,10 @@
                   <label ng-click='viewAnswered()' class="btn btn-default">
                     <input type="radio" name="options" id="option2"> Answered
                   </label>
+                  <div> <!-- LOG IN HERE (MOVE LATER) -->
+                    <label>{{showThis}}: <input type="text" ng-model="wordsIn"> <input type="text" ng-model="passIn"></label>
+                    <button ng-click="logIn(wordsIn,passIn)">Log in!</button>
+                </div>
                 </div>
                 
                 <div class="well" ng-repeat="q in questions track by $index">
@@ -169,11 +182,8 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
 
-    <!-- AngularJS -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-
     <!-- javascript for parse -->
-    <script>
+    <!--<script>
         var app = angular.module('myApp',[]);
 
         Parse.initialize("3r4Ojai6mYESGymkDVf48wzZDIuBPaF9J0CHCCS7", "I2IBiCAt0Tf0lrXiX8MoMvpwbzIEyjz3Td8GrLYC");
@@ -328,7 +338,7 @@
 
         
 
-    </script>
+    </script>-->
     
 
 </body>
