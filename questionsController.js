@@ -154,6 +154,10 @@ cs194hApp.controller('QuestionsController', ['$scope', function($scope) {
 	    }, 2000);
 	}();
 
+	$scope.tryAddLike = function() {
+		console.log("ty ad");
+	}
+
 
 	var changeView = function(answered) {
 	    $scope.answered = answered;

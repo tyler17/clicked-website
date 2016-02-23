@@ -109,7 +109,7 @@ controller named MainControllerP4.-->
                         <h3 class="post-title">
                             {{ q.txt }}
                             <!--<span style="float: right" class="glyphicon glyphicon-arrow-up"> 7 </span>-->
-                            <button style="float: right; background-color: transparent; padding: 0; border:none; background:none; font-size: 18px" type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span>{{q.numLiked}}</button>
+                            <button ng-click="tryAddLike()" style="float: right; background-color: transparent; padding: 0; border:none; background:none; font-size: 18px" type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span>{{q.numLiked}}</button>
                         </h3>
                     </div>
                     <p class="post-meta">Posted by <span href="#">{{q.usr}}</span> at {{q.tim}} on {{q.dat}}
