@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
+<!--Defined everything in side the html tag to be an angular view template with the
+controller named MainControllerP4.-->
 <html ng-app="cs194hApp" ng-controller="MainController">
-
-<head>
-
-    <meta charset="utf-8">
+    <head>
+            <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -25,25 +25,27 @@
     <!-- Parse -->
     <script src="http://www.parsecdn.com/js/parse-1.6.14.min.js"></script>
 
-        <!-- AngularJS -->
+    <!-- AngularJS -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
-    <!--<script src="./node_modules/angular/angular.js" type="text/javascript" ></script>-->
-
-    <!--<script src="node_modules/angular-route/angular-route.js"></script>-->
-
+    <!--Include the main controller (MainControllerP4) -->
     <script src="mainController.js"></script>
+    <!--Include the controllers and models for all the view templates we are using-->
+    <script src="loginController.js"></script>
+    <link rel="stylesheet" type="text/css" href="login.css" />
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
+    <script src="questionsController.js"></script>
+    <!--
+    <link rel="stylesheet" type="text/css" href="components/states/states.css" />
+        -->
+    </head>
+    <body>
+        <!--Use ng-if to decide to include these elements. Current implementation only
+            displays one at a time, but other implementations of the controller need
+            not necessarily do this-->
+            
+        <div ng-if="(container.successUser)" ng-controller="QuestionsController"> <!-- ng-include:questions.html -->
+<div>
 
 <div>
     <!-- Navigation -->
@@ -66,17 +68,6 @@
                     <li style="cursor:pointer" class="class-selection" ng-repeat="f in filters track by $index">
                         <a style="font-size:20px" ng-click="changeFilt(f)">{{f.name}}</a>
                     </li>
-                    <!--
-                    <li>
-                        <a href="classes.html">Classes</a>
-                    </li>
-                    <li>
-                        <a href="about.html">About</a>
-                    </li>
-                    <li>
-                        <a href="login.html">Login</a>
-                    </li>
-                -->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -88,7 +79,7 @@
     <!-- Set your background image for this header on the line below. -->
     <header class="intro-header" style="background-image: url('img/green-row.png')">
         <div class="container">
-            <div style="padding: 20px"class="row">
+            <div style="padding: 10px"class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                      <!-- <div class="site-heading">  -->
                      <div style="text-align:center"class="site-heading-clicked">
@@ -110,10 +101,7 @@
                   <label ng-click='viewAnswered()' class="btn btn-default">
                     <input type="radio" name="options" id="option2"> Answered
                   </label>
-                  <div> <!-- LOG IN HERE (MOVE LATER) -->
-                    <label>{{showThis}}: <input type="text" ng-model="wordsIn"> <input type="text" ng-model="passIn"></label>
-                    <button ng-click="logIn(wordsIn,passIn)">Log in!</button>
-                </div>
+                  
                 </div>
                 
                 <div class="well" ng-repeat="q in questions track by $index">
@@ -121,7 +109,7 @@
                         <h3 class="post-title">
                             {{ q.txt }}
                             <!--<span style="float: right" class="glyphicon glyphicon-arrow-up"> 7 </span>-->
-                            <button style="float: right; background-color: transparent; padding: 0; border:none; background:none; font-size: 18px" type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span>4</button>
+                            <button style="float: right; background-color: transparent; padding: 0; border:none; background:none; font-size: 18px" type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span>{{q.numLiked}}</button>
                         </h3>
                     </div>
                     <p class="post-meta">Posted by <span href="#">{{q.usr}}</span> at {{q.tim}} on {{q.dat}}
@@ -182,165 +170,120 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
 
-    <!-- javascript for parse -->
-    <!--<script>
-        var app = angular.module('myApp',[]);
+</div>
+        </div>
+        <div ng-if="(!container.successUser)" ng-controller="LoginController">
+         <!--ng-include"'login.html'"-->
+         <div>
 
-        Parse.initialize("3r4Ojai6mYESGymkDVf48wzZDIuBPaF9J0CHCCS7", "I2IBiCAt0Tf0lrXiX8MoMvpwbzIEyjz3Td8GrLYC");
+<div>
 
-        /*
-        var callRefresh = function() {
-            console.log("still here");
-        }
+    <div class="form">
+      
+      <ul class="tab-group">
+        <li ng-class="logIn"><a ng-click="logInTab()">Log In</a></li>
+        <li ng-class="signUp"><a ng-click="signUpTab()">Sign Up</a></li>
 
-        window.onload = function() {
-            setTimeout(function () {
-                console.log("HERE!");
-                callRefresh();
-                console.log("HERE!");
+        <!--
+        <li class="tab active"><a href="#signup">Sign Up</a></li>
+        <li class="tab"><a href="#login">Log In</a></li>
+        -->
+      </ul>
+      
+      <div class="tab-content">
 
-            }, 5000);
-        }
-        */
- 
-        app.controller('QuestionController', ['$scope', function($scope) {
-            $scope.teacherID = 12345; //undo hardcode later
-            var showAll = [];
-            showAll.name = "All Classes";
-            showAll.id = -1;
-            //showAll.answered = true;
-            $scope.curFilt = showAll; //default show all classes
-            $scope.answered = false; //only show unanswered
+        <div ng-if="userSignIn">   
+          <h1>Welcome Back!</h1>
+          
+          <!--<form action="/" method="post">-->
+          
+            <div class="field-wrap">
+            <input type="text" placeholder="Email Address" required autocomplete="off" ng-model="main.emailAddr"/>
+          </div>
+          
+          <div class="field-wrap">
+            <input type="password" placeholder="Password" required autocomplete="off" ng-model="main.password"/>
+          </div>
+          
+          <p style="display:none" class="forgot"><a href="#">Forgot Password?</a></p>
+          
+          <button ng-click="logInUser()" class="button button-block"/>Log In</button>
+          
+          <!--</form>-->
 
+        </div>
 
-            $scope.refresh = function (){
-                getQuestions();
-            }          
-
-            $scope.addressQuestion = function(q){
-                parseQ = q.parseObject;
-                parseQ.save(null, {
-                    success: function(parseQ){
-                        parseQ.set("Addressed", true);
-                        parseQ.save();
-                    }
-                });
-
-            }
-
-            $scope.changeFilt = function(filt) {
-                $scope.curFilt = filt;
-                $scope.questions = [];
-                for (var i=0; i < $scope.allQuestions.length; i++){
-                    var question = $scope.allQuestions[i];
-
-                    if(question.cc === filt.id || filt.id === -1){
-                        if($scope.answered === question.answered) {
-                            $scope.questions.push(question);
-                        }
-                    }
-                    
-                }
-                //$scope.$apply();
-            }
-  
-
-            var Class = Parse.Object.extend("Class");
-            var query2 = new Parse.Query(Class);
-            $scope.filters=[];
-            $scope.filters.push(showAll);
-            query2.find({
-                success: function(classes) {
-                for (var i=0; i < classes.length; i++){
-                    if(true) {//classes[i].get("TeacherID") === $scope.teacherID){
-                        var result = [];
-                        result.name = classes[i].get("ClassName");
-                        result.id = classes[i].id;
-                        $scope.filters.push(result);
-                    }
-                }
-                $scope.$apply();
-
-                },
-                error: function(error) {
-                    console.log('error');
-                    alert("Error: " + error.code + " " + error.message);
-                }
-            });
-
-            var getQuestions = function() {
-
-                var Question = Parse.Object.extend("Question");
-                var query = new Parse.Query(Question);
-                query.descending("updatedAt");
-                $scope.allQuestions=[];
-                $scope.questions=[];
-
-                query.find({
-                  success: function(results) {
-                    for (var i=0; i < results.length; i++){
-                        var result = [];
-                        if(i===0) console.log();
-                        result.txt = results[i].get("Content");
-                        result.usr = results[i].get("MessageSender");
-                        result.tim = results[i].get("TimeSent");
-                        result.dat = results[i].get("DateSent");
-                        result.cc = results[i].get("ClassID");
-                        result.answered = results[i].get("Addressed");
-                        result.parseObject = results[i];
-                        $scope.allQuestions.push(result);
-                        /*if(result.cc === 17061 || $scope.curFilt.id === -1){
-                            if($scope.answered === result.answered) {
-                                console.log("answered: " + result.answered);
-                                $scope.questions.push(result);
-                            }
-                        }*/
-                        $scope.changeFilt($scope.curFilt);
-                        
-                    }
-                    $scope.$apply();
-
-                  },
-                  error: function(error) {
-                    console.log('error');
-                    alert("Error: " + error.code + " " + error.message);
-                  }
-                });
-            };
-            getQuestions();
-            var recursiveTime = function myself () {
-                setTimeout(function () {
-                    getQuestions();
-                    console.log("refreshed");
-                    myself();
-                }, 2000);
-            }();
-
-
-            var changeView = function(answered) {
-                $scope.answered = answered;
-                console.log("changeview " + answered);
-                
-                $scope.questions = [];
-                $scope.changeFilt($scope.curFilt);
-                //$scope.$apply();
-            }
-            $scope.viewUnanswered = function() {
-                console.log("false");
-                changeView(false);
-            }
-            $scope.viewAnswered = function() {
-                console.log("true");
-                changeView(true);
-            }  
-
-        }]);
-
+        <div ng-if="!userSignIn">   
+          <h1>Sign Up for clickED!</h1>
+          
+          <!--<form action="/" method="post">-->
+          
+          <div class="top-row">
+            <div class="field-wrap">
+              <input type="text" placeholder="First Name" required autocomplete="off" ng-model="main.firstName"/>
+            </div>
         
+            <div class="field-wrap">
+              <input type="text" placeholder="Last Name" required autocomplete="off" ng-model="main.lastName"/>
+            </div>
+          </div>
 
-    </script>-->
+          <div class="field-wrap">
+            <input type="text" placeholder="Email Address" required autocomplete="off" ng-model="main.emailAddr"/>
+          </div>
+          
+          <div class="field-wrap">
+            <input type="password" placeholder="Password" required autocomplete="off" ng-model="main.password"/>
+          </div>
+
+          <div class="field-wrap" style="display:none">
+            <input type="password" placeholder="Confirm Password" required autocomplete="off" ng-model="main.passwordConfirm"/>
+          </div>
+          
+          <button ng-click="signUpUser()" class="button button-block"/>Get Started</button>
+          
+          <!--</form>-->
+
+        </div>
+        
+      </div><!-- tab-content -->
+      
+    </div> <!-- /form --> 
+
+    <!-- Footer --><!--
+    <footer>
+        <p class="copyright text-muted">Copyright &copy; clickED 2016</p>
+    </footer>-->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+<!-- can re-include later
+     <script>
+//Array of images which you want to show: Use path you want.
+var images=new Array('img/home-bg.jpg','img/contact-bg.jpg');
+var nextimage=0;
+doSlideshow();
+
+function doSlideshow(){
+    if(nextimage>=images.length){nextimage=0;}
+    $('#background')
+    .css('background-image','url("'+images[nextimage++]+'")')
+    .fadeIn(100,function(){
+        setTimeout(doSlideshow,10000);
+    });
+}
+</script>-->
     
 
-</body>
+</div>
 
+        </div>
+    </body>
 </html>
