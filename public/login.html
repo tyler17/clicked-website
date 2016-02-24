@@ -1,0 +1,123 @@
+<div id="background">
+
+<div>
+    Success as: {{main.successAs}}
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+ 
+<!--
+<div style="text-align: center"> LOG IN HERE (MOVE LATER) 
+    <label>{{showThis}}:
+        <input type="text" ng-model="wordsIn">
+        <input type="text" ng-model="passIn">
+    </label>
+    <button ng-click="logIn(wordsIn,passIn)">Log in!</button>
+</div> -->
+
+
+    <div class="form">
+      
+      <ul class="tab-group">
+        <li ng-class="logIn"><a ng-click="logInTab()">Log In</a></li>
+        <li ng-class="signUp"><a ng-click="signUpTab()">Sign Up</a></li>
+
+        <!--
+        <li class="tab active"><a href="#signup">Sign Up</a></li>
+        <li class="tab"><a href="#login">Log In</a></li>
+        -->
+      </ul>
+      
+      <div class="tab-content">
+
+        <div ng-if="userSignIn">   
+          <h1>Welcome Back!</h1>
+          
+          <!--<form action="/" method="post">-->
+          
+            <div class="field-wrap">
+            <input type="text" placeholder="Email Address" required autocomplete="off" ng-model="main.emailAddr"/>
+          </div>
+          
+          <div class="field-wrap">
+            <input type="password" placeholder="Password" required autocomplete="off" ng-model="main.password"/>
+          </div>
+          
+          <p style="display:none" class="forgot"><a href="#">Forgot Password?</a></p>
+          
+          <button ng-click="logInUser()" class="button button-block"/>Log In</button>
+          
+          <!--</form>-->
+
+        </div>
+
+        <div ng-if="!userSignIn">   
+          <h1>Sign Up for clickED!</h1>
+          
+          <!--<form action="/" method="post">-->
+          
+          <div class="top-row">
+            <div class="field-wrap">
+              <input type="text" placeholder="First Name" required autocomplete="off" ng-model="main.firstName"/>
+            </div>
+        
+            <div class="field-wrap">
+              <input type="text" placeholder="Last Name" required autocomplete="off" ng-model="main.lastName"/>
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <input type="text" placeholder="Email Address" required autocomplete="off" ng-model="main.emailAddr"/>
+          </div>
+          
+          <div class="field-wrap">
+            <input type="password" placeholder="Password" required autocomplete="off" ng-model="main.password"/>
+          </div>
+
+          <div class="field-wrap" style="display:none">
+            <input type="password" placeholder="Confirm Password" required autocomplete="off" ng-model="main.passwordConfirm"/>
+          </div>
+          
+          <button ng-click="signUpUser()" class="button button-block"/>Get Started</button>
+          
+          <!--</form>-->
+
+        </div>
+        
+      </div><!-- tab-content -->
+      
+    </div> <!-- /form --> 
+
+    <!-- Footer --><!--
+    <footer>
+        <p class="copyright text-muted">Copyright &copy; clickED 2016</p>
+    </footer>-->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+<!-- can re-include later
+     <script>
+//Array of images which you want to show: Use path you want.
+var images=new Array('img/home-bg.jpg','img/contact-bg.jpg');
+var nextimage=0;
+doSlideshow();
+
+function doSlideshow(){
+    if(nextimage>=images.length){nextimage=0;}
+    $('#background')
+    .css('background-image','url("'+images[nextimage++]+'")')
+    .fadeIn(100,function(){
+        setTimeout(doSlideshow,10000);
+    });
+}
+</script>-->
+    
+
+</div>
