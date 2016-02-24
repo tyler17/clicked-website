@@ -30,11 +30,11 @@ controller named MainControllerP4.-->
         <header class="intro-header" style="background-image: url('img/green-row.png')">
             <div class="row" style="padding:10px">
                 <div class="col-md-3">
-                    <!--<button type="button" class="btn btn-primary">Settings</button>-->
+                    <button ng-click="swapLayout()" type="button" class="btn btn-default">Swap Layout</button>
                 </div>
                 <div class="col-md-6"  style="text-align:center">
                     <span style="text-align:center"class="site-heading-clicked">
-                        <span style="font-size:40px"><b>{{teacherName}}'s Home Page</b></span>
+                        <span style="font-size:40px"><b>{{teacherName}}'s Class List</b></span>
                     </span>
                 </div>
                 <div class="col-md-3" style="text-align:right">
@@ -44,9 +44,11 @@ controller named MainControllerP4.-->
         </header>
 <!--ng-repeat="c in myClasses">
             {{c.name}}-->
-        <div class="row">
+    <div class="row">
+        <!--<h2 style="text-align:center"> <u>Class List</u> </h2>-->
+
+        <span ng-if="list">
             <div class="col-md-8 col-md-offset-2">
-                <h2 style="text-align:center"> <u>Class List</u> </h2>
                 <div ng-repeat="c in myClasses" class="panel panel-default" ng-click="selectClass(c)">
                     <div class="panel-body">
                         <span style="font-size:30px">"{{c.name}}" Home Page</span>
@@ -62,18 +64,29 @@ controller named MainControllerP4.-->
                 </div>
 
             </div>
-        </div>
-        <div class="row">
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="..." alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>Words are long long long</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
+        </span>
+        <span ng-if="!list">
+            <div class="col-sm-6 col-md-4" ng-repeat="c in myClasses">
+                <div class="thumbnail">
+                <img ng-src="{{randPic()}}"></img>
+                    <div class="caption">
+                        <h3 style="font-style:initial">{{c.name}}</h3>
+                        <p>Some description</p>
+                        <p><a href="#" class="btn btn-primary" role="button">Questions</a> <a href="#" class="btn btn-default" role="button">Edit</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                <img ng-src="{{randPic()}}"></img>
+                    <div class="caption">
+                        <h3 style="font-style:initial">ADD CLASS <span class="glyphicon glyphicon-plus"></span></h3>
+                        <p>Create a new class here </p>
+                        <p><a href="#" class="btn btn-primary" role="button">Create New Class</a></p>
+                    </div>
+                </div>
+            </div>
+        </span>
     </div>
-  </div>
-</div>
     </body>
 </html>

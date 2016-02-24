@@ -42,6 +42,14 @@ cs194hApp.controller('HomeController', ['$scope', function($scope) {
            alert("Error: " + error.code + " " + error.message);
        }
    });
+   var iter = 4;
+   $scope.randPic = function() {
+      iter++;
+      var pic = iter % 4;
+      console.log("haha");
+      return "img/" + pic + ".jpg";
+   }
+   $scope.dop = 'img/1.jpg';
 
    $scope.selectClass = function(c) {
       console.log(c.name);
@@ -51,6 +59,10 @@ cs194hApp.controller('HomeController', ['$scope', function($scope) {
       console.log('new class');
    }
 
+   $scope.list = false;
+   $scope.swapLayout = function() {
+      $scope.list = !($scope.list);
+   }
 
 }]);
 
