@@ -1,3 +1,3 @@
 # clicked-website
 
-To run: npm start
+To run: npm install && npm start
