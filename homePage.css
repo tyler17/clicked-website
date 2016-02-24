@@ -1,0 +1,4 @@
+.panel-default:hover {
+	border: 1px solid green;
+	cursor: pointer !important;
+}

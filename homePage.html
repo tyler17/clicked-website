@@ -1,0 +1,79 @@
+<!doctype html>
+<!--Defined everything in side the html tag to be an angular view template with the
+controller named MainControllerP4.-->
+<html ng-app="cs194hApp" ng-controller="HomeController">
+    <head>
+        <title>{{title || "CS142 Class Project"}}</title>
+        <!-- Add Angular -->
+        <script src="node_modules/angular/angular.js"></script>
+        <!--Include the main controller (MainControllerP4) -->
+        <script src="homeController.js"></script>
+        <!--Include the controllers and models for all the view templates we are using-->
+         <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <link href="homePage.css" rel="stylesheet" type="text/css">
+
+        <!-- Parse -->
+        <script src="http://www.parsecdn.com/js/parse-1.6.14.min.js"></script>
+    </head>
+    <body>
+
+        <header class="intro-header" style="background-image: url('img/green-row.png')">
+            <div class="row" style="padding:10px">
+                <div class="col-md-3">
+                    <!--<button type="button" class="btn btn-primary">Settings</button>-->
+                </div>
+                <div class="col-md-6"  style="text-align:center">
+                    <span style="text-align:center"class="site-heading-clicked">
+                        <span style="font-size:40px"><b>{{teacherName}}'s Home Page</b></span>
+                    </span>
+                </div>
+                <div class="col-md-3" style="text-align:right">
+                    <button type="button" class="btn btn-default">Log Out</button>
+                </div>
+            </div>
+        </header>
+<!--ng-repeat="c in myClasses">
+            {{c.name}}-->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h2 style="text-align:center"> <u>Class List</u> </h2>
+                <div ng-repeat="c in myClasses" class="panel panel-default" ng-click="selectClass(c)">
+                    <div class="panel-body">
+                        <span style="font-size:30px">"{{c.name}}" Home Page</span>
+                    </div>
+
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body" ng-click="newClass()">
+                        <span style="font-size:30px"><b>Add a New Class</b></span>
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="..." alt="...">
+      <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>Words are long long long</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+    </body>
+</html>

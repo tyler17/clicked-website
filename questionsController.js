@@ -111,6 +111,7 @@ cs194hApp.controller('QuestionsController', ['$scope', function($scope) {
 	            result.studentsLiked = [];
 	            if(studentsWhoLiked){
 	            	result.numLiked = studentsWhoLiked.length;
+	            	console.log(studentsWhoLiked);
 		            /*var studentNames="";
 		            for (var i=0; i< studentsWhoLiked.length; i++){
 		            	if (i!=0){

@@ -81,6 +81,9 @@ cs194hApp.controller('LoginController', ['$scope', function($scope) {
    			success: function(user) {
    				$scope.main.curUser = user;
    				$scope.main.successAs = "signed in: " + user.get("firstName");
+               $scope.container.successUser = user;
+               $scope.main.curUser = user;
+               $scope.$apply();
    			},
    			error: function(error) {
    				console.log("error on signin");
