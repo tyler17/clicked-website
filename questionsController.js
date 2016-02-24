@@ -147,6 +147,8 @@ cs194hApp.controller('QuestionsController', ['$scope', function($scope) {
 	    });
 	};
 	getQuestions();
+	// TODO: For now we don't refresh - later do better things
+	/*
 	var recursiveTime = function myself () {
 	    setTimeout(function () {
 	        getQuestions();
@@ -154,6 +156,7 @@ cs194hApp.controller('QuestionsController', ['$scope', function($scope) {
 	        myself();
 	    }, 2000);
 	}();
+	*/
 
 	$scope.tryAddLike = function() {
 		console.log("ty ad");

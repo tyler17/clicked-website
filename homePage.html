@@ -22,6 +22,7 @@ controller named MainControllerP4.-->
 
         <link href="homePage.css" rel="stylesheet" type="text/css">
 
+        <link href="login.css" rel="stylesheet" type="text/css">
         <!-- Parse -->
         <script src="http://www.parsecdn.com/js/parse-1.6.14.min.js"></script>
     </head>
@@ -38,10 +39,39 @@ controller named MainControllerP4.-->
                     </span>
                 </div>
                 <div class="col-md-3" style="text-align:right">
-                    <button type="button" class="btn btn-default">Log Out</button>
+                    <button ng-click="logOut()" type="button" class="btn btn-default">Log Out</button>
                 </div>
             </div>
         </header>
+
+<div ng-if="addingClass" class="form" style="position:absolute; z-index:1; margin-left: auto; margin-right: auto; left: 0; right: 0;">
+
+    <div class="tab-content">
+
+      <div>   
+        <h1>{{formMessage}}</h1>
+
+        <!--<form action="/" method="post">-->
+
+        <div class="field-wrap">
+          <input type="text" placeholder="Class Name" required autocomplete="off" ng-model="className"/>
+        </div>
+
+        <div ng-if="!editingClass" class="field-wrap">
+          <input type="text" placeholder="Class Code" required autocomplete="off" ng-model="classCode"/>
+        </div>
+
+        <button ng-click="createClass()" class="button button-block"/>Create Class</button>
+
+        <!--</form>-->
+
+      </div>
+
+    </div><!-- tab-content -->
+
+  </div> <!-- /form --> 
+</div>
+
 <!--ng-repeat="c in myClasses">
             {{c.name}}-->
     <div class="row">
@@ -52,6 +82,7 @@ controller named MainControllerP4.-->
                 <div ng-repeat="c in myClasses" class="panel panel-default" ng-click="selectClass(c)">
                     <div class="panel-body">
                         <span style="font-size:30px">"{{c.name}}" Home Page</span>
+                        - class code: {{c.code}}
                     </div>
 
                 </div>
@@ -71,8 +102,8 @@ controller named MainControllerP4.-->
                 <img ng-src="{{randPic()}}"></img>
                     <div class="caption">
                         <h3 style="font-style:initial">{{c.name}}</h3>
-                        <p>Some description</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Questions</a> <a href="#" class="btn btn-default" role="button">Edit</a></p>
+                        <p>class code: {{c.code}}</p>
+                        <p><a href="#" class="btn btn-primary" role="button">Questions</a> <a ng-click="editClass(c)" class="btn btn-default" role="button">Edit</a></p>
                     </div>
                 </div>
             </div>
@@ -82,7 +113,7 @@ controller named MainControllerP4.-->
                     <div class="caption">
                         <h3 style="font-style:initial">ADD CLASS <span class="glyphicon glyphicon-plus"></span></h3>
                         <p>Create a new class here </p>
-                        <p><a href="#" class="btn btn-primary" role="button">Create New Class</a></p>
+                        <p><a ng-click="newClass()" class="btn btn-primary" role="button">Create New Class</a></p>
                     </div>
                 </div>
             </div>

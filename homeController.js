@@ -31,6 +31,7 @@ cs194hApp.controller('HomeController', ['$scope', function($scope) {
             var result = [];
             result.name = classes[i].get("ClassName");
             result.id = classes[i].id;
+            result.code = classes[i].get("ClassCode");
             result.parseObject = classes[i];
             $scope.myClasses.push(result);
        }
@@ -42,26 +43,59 @@ cs194hApp.controller('HomeController', ['$scope', function($scope) {
            alert("Error: " + error.code + " " + error.message);
        }
    });
-   var iter = 4;
    $scope.randPic = function() {
-      iter++;
-      var pic = iter % 4;
-      console.log("haha");
-      return "img/" + pic + ".jpg";
+      var pict = 1;
+      return "img/" + pict + ".jpg";
    }
-   $scope.dop = 'img/1.jpg';
+
 
    $scope.selectClass = function(c) {
       console.log(c.name);
    }
 
+   $scope.formMessage = "Create a New Class";
+
+   $scope.addingClass = false;
+   $scope.classCode;
+   $scope.className;
+   $scope.createClass = function() {
+      if($scope.editingClass) {
+         //change name of existing class
+         console.log($scope.editClassIs);
+
+
+         $scope.editClassIs = undefined;
+      }else {
+         //add class
+
+      }
+
+      $scope.addingClass = false;
+   }
+   $scope.editClassIs = undefined;
+   $scope.editingClass = true;
+   $scope.editClass = function(classClicked) {
+      $scope.editClassIs = classClicked;
+      $scope.editingClass = true;
+      $scope.formMessage = "Edit Class Name";
+      $scope.addingClass = true;
+   }
+
+
    $scope.newClass = function() {
       console.log('new class');
+      $scope.formMessage = "Create a New Class";
+      $scope.editingClass = false;
+      $scope.addingClass = true;
    }
 
    $scope.list = false;
    $scope.swapLayout = function() {
       $scope.list = !($scope.list);
+   }
+
+   $scope.logOut = function() {
+      console.log("out");
    }
 
 }]);
