@@ -49,11 +49,12 @@
             not necessarily do this-->
             
             <div ng-if="(container.successUser)">
-                <div ng-if="(!container.selectClass)" ng-controller="HomeController">
+                <div ng-controller="HomeController">
                     <header class="intro-header" style="background-image: url('img/green-row.png')">
                         <div class="row" style="padding:10px">
                             <div class="col-md-3">
-                                <button ng-click="swapLayout()" type="button" class="btn btn-default">Swap Layout</button>
+                                <button ng-show="(!container.selectClass)"ng-click="swapLayout()" type="button" class="btn btn-default">Swap Layout</button>
+                                <button ng-show="(container.selectClass)"ng-click="deselectClass()" type="button" class="btn btn-default">Home</button>
                             </div>
                             <div class="col-md-6"  style="text-align:center">
                                 <span style="text-align:center"class="site-heading-clicked">
@@ -65,84 +66,85 @@
                             </div>
                         </div>
                     </header>
+                    <span ng-if="(!container.selectClass)">
+                        <div ng-if="addingClass" id="formCreateNew" class="form" style="position:absolute; z-index:1; margin-left: auto; margin-right: auto; left: 0; right: 0;">
 
-                    <div ng-if="addingClass" id="formCreateNew" class="form" style="position:absolute; z-index:1; margin-left: auto; margin-right: auto; left: 0; right: 0;">
-
-                        <div class="tab-content">
-                            <div>   
-                                <h1>{{formMessage}}</h1>
-                                <!--<form action="/" method="post">-->
-                                <div class="field-wrap">
-                                    <input type="text" placeholder="Class Name" required autocomplete="off" ng-model="create.nameClass"/>
-                                </div>
-                                <div ng-if="!editingClass" class="field-wrap">
-                                    <input type="number" placeholder="Class Code" required autocomplete="off" ng-model="create.classCode"/>
-                                </div>
-                                <div ng-if="editingClass" class="field-wrap">
-                                    <button ng-click="deleteClass()" class="button button-block delete-btn"/>Delete Class</button>
-                                </div>
-
-                                <div class="top-row">
+                            <div class="tab-content">
+                                <div>   
+                                    <h1>{{formMessage}}</h1>
+                                    <!--<form action="/" method="post">-->
                                     <div class="field-wrap">
-                                        <button ng-click="cancelCreate()" class="button button-block cancel-btn"/>Cancel</button>
+                                        <input type="text" placeholder="Class Name" required autocomplete="off" ng-model="create.nameClass"/>
                                     </div>
-                                    <div class="field-wrap">
-                                        <button ng-click="createClass()" class="button button-block"/>{{createMessage}}</button>
+                                    <div ng-if="!editingClass" class="field-wrap">
+                                        <input type="number" placeholder="Class Code" required autocomplete="off" ng-model="create.classCode"/>
                                     </div>
-                                </div>
-                                <!--</form>-->
-                            </div>
-                        </div><!-- tab-content -->
-                    </div>
-
-                    <div class="row">
-                        <!--<h2 style="text-align:center"> <u>Class List</u> </h2>-->
-                        <span ng-if="list">
-                            <div class="col-md-8 col-md-offset-2">
-                                <div ng-repeat="c in myClasses" class="panel panel-default" ng-click="selectClass(c)">
-                                    <div class="panel-body">
-                                        <span style="font-size:30px">"{{c.name}}" Home Page</span>
-                                        - class code: {{c.code}}
+                                    <div ng-if="editingClass" class="field-wrap">
+                                        <button ng-click="deleteClass()" class="button button-block delete-btn"/>Delete Class</button>
                                     </div>
 
+                                    <div class="top-row">
+                                        <div class="field-wrap">
+                                            <button ng-click="cancelCreate()" class="button button-block cancel-btn"/>Cancel</button>
+                                        </div>
+                                        <div class="field-wrap">
+                                            <button ng-click="createClass()" class="button button-block"/>{{createMessage}}</button>
+                                        </div>
+                                    </div>
+                                    <!--</form>-->
                                 </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-body" ng-click="newClass()">
-                                        <span style="font-size:30px"><b>Add a New Class</b></span>
-                                        <span class="glyphicon glyphicon-plus"></span>
+                            </div><!-- tab-content -->
+                        </div>
+
+                        <div class="row">
+                            <!--<h2 style="text-align:center"> <u>Class List</u> </h2>-->
+                            <span ng-if="list">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div ng-repeat="c in myClasses" class="panel panel-default" ng-click="questionsClass(c)">
+                                        <div class="panel-body">
+                                            <span style="font-size:30px">"{{c.name}}" Home Page</span>
+                                            - class code: {{c.code}}
+                                        </div>
+
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body" ng-click="newClass()">
+                                            <span style="font-size:30px"><b>Add a New Class</b></span>
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </span>
-                        <span ng-if="!list">
-                            <div class="col-sm-6 col-md-4" ng-repeat="c in myClasses">
-                                <div class="thumbnail">
-                                <img ng-src="{{randPic()}}"></img>
-                                    <div class="caption">
-                                        <h3 style="font-style:initial">{{c.name}}</h3>
-                                        <p>class code: {{c.code}}</p>
-                                        <p><a href="#" class="btn btn-primary" role="button">Questions</a> <a ng-click="editClass(c)" class="btn btn-default" role="button" href="#formCreateNew">Edit</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
+                            </span>
+                            <span ng-if="!list">
+                                <div class="col-sm-6 col-md-4" ng-repeat="c in myClasses">
+                                    <div class="thumbnail">
                                     <img ng-src="{{randPic()}}"></img>
-                                    <div class="caption">
-                                        <h3 style="font-style:initial">ADD CLASS <span class="glyphicon glyphicon-plus"></span></h3>
-                                        <p>Create a new class here </p>
-                                        <p><a ng-click="newClass()" class="btn btn-primary" role="button" href="#formCreateNew">Create New Class</a></p>
+                                        <div class="caption">
+                                            <h3 style="font-style:initial">{{c.name}}</h3>
+                                            <p>class code: {{c.code}}</p>
+                                            <p><a ng-click="questionsClass(c)" class="btn btn-primary" role="button">Questions</a> <a ng-click="editClass(c)" class="btn btn-default" role="button" href="#formCreateNew">Edit</a></p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </span>
-                    </div>
+                                <div class="col-sm-6 col-md-4">
+                                    <div class="thumbnail">
+                                        <img ng-src="{{randPic()}}"></img>
+                                        <div class="caption">
+                                            <h3 style="font-style:initial">ADD CLASS <span class="glyphicon glyphicon-plus"></span></h3>
+                                            <p>Create a new class here </p>
+                                            <p><a ng-click="newClass()" class="btn btn-primary" role="button" href="#formCreateNew">Create New Class</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </span>
                 </div>
                 <div ng-if="(container.selectClass)" ng-controller="QuestionsController"> <!-- ng-include:questions.html HEREHERHE TODO -->
                     <div>
 
-                        <div>
-                            <!-- Navigation -->
+                        <div ng-if="false">
+                            <!-- Navigation - never show, is old -->
                             <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
                                 <div class="container-fluid">
                                     <!-- Brand and toggle get grouped for better mobile display -->
@@ -177,13 +179,13 @@
                                         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                                            <!-- <div class="site-heading">  -->
                                            <div style="text-align:center"class="site-heading-clicked">
-                                            <h1> </h1>
+                                                <h1> </h1>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </header>
-
+                            </header>
+                        </div>
                         <!-- Main Content -->
                         <div class="container">
                             <div class="row">

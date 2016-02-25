@@ -13,13 +13,19 @@ cs194hApp.controller('HomeController', ['$scope', function($scope) {
 
    Parse.initialize("3r4Ojai6mYESGymkDVf48wzZDIuBPaF9J0CHCCS7", "I2IBiCAt0Tf0lrXiX8MoMvpwbzIEyjz3Td8GrLYC");
 
-   $scope.title = 'MRTRUMP';
-
-   $scope.teacherName = "MR. TRUMP";
+   $scope.title = 'Mr. Donald - class';
+   $scope.teacherName = "Mr. Donald";
    // UB4KnOZOoJ = Mr.Trump's TeacherID
    //password: 2 ,email: 2@test.com
    var myID = 'UB4KnOZOoJ';
    var myName = 'Mr. Trump';
+
+   myName = "Dr. " + $scope.container.successUser.get("lastName");
+   $scope.teacherName = myName;
+   myID = $scope.container.successUser.id;
+   //$scope.container.selectClass;
+
+
 
    var loadClasses = function() {
    var Class = Parse.Object.extend("Class");
@@ -150,6 +156,14 @@ cs194hApp.controller('HomeController', ['$scope', function($scope) {
       $scope.addingClass = true;
    }
 
+   $scope.questionsClass = function(classClicked) {
+      $scope.container.selectClass = classClicked;
+   }
+
+   $scope.deselectClass = function() {
+      $scope.container.selectClass = undefined;
+   }
+
 
    $scope.newClass = function() {
       console.log('new class');
@@ -166,6 +180,8 @@ cs194hApp.controller('HomeController', ['$scope', function($scope) {
 
    $scope.logOut = function() {
       console.log("out");
+      $scope.container.successUser = undefined;
+      $scope.container.selectClass = undefined;
    }
 
 

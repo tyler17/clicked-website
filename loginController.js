@@ -17,10 +17,10 @@ cs194hApp.controller('LoginController', ['$scope', function($scope) {
    $scope.userSignIn = true;
    $scope.logIn = 'tab active';
    $scope.signUp = 'tab';
-   $scope.main.emailAddr = 'martian@a.bc';
-   $scope.main.firstName = 'John';
-   $scope.main.lastName = 'Jones';
-   $scope.main.password = 'martian';
+   $scope.main.emailAddr = '2@test.com';
+   $scope.main.firstName = 'Donaldo';
+   $scope.main.lastName = 'Trumpo';
+   $scope.main.password = '2';
    $scope.main.failLogin = '';
 
 
