@@ -16,6 +16,7 @@ cs194hApp.controller('MainController', ['$scope', function($scope) {
    // by the html view template to get the page's title in the browser tab.
    $scope.container = {};
    $scope.container.successUser = undefined;
+   $scope.container.selectClass = undefined;
 
 }]);
 

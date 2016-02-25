@@ -1,7 +1,7 @@
 "use strict";
 
  
-var cs194hApp = angular.module('cs194hApp', []);
+//var cs194hApp = angular.module('cs194hApp', []);
 /**
  * Create a controller named 'MainController'.  The array argument specifies the controller
  * function and what dependencies it has.  We specify the '$scope' service so we can have access
@@ -62,7 +62,7 @@ cs194hApp.controller('HomeController', ['$scope', function($scope) {
    $scope.addingClass = false;
 
    $scope.create = {};
-   $scope.create.classCode = 0;
+   $scope.create.classCode = '';
    $scope.create.nameClass = '';
 
    $scope.cancelCreate = function() {

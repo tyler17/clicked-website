@@ -2,3 +2,39 @@
 	border: 1px solid green;
 	cursor: pointer !important;
 }
+
+.btn-primary {
+	background-color: #1ab188;
+	border-color: #1ab188;
+}
+
+.btn {
+	text-decoration: none;
+}
+
+.btn:hover {
+	background:  #c1bdba;
+	border-color: #c1bdba;
+}
+
+::selection {
+	background: #1ab188;
+
+}
+
+.cancel-btn {
+	background-color:white !important;
+	color:#1ab188 !important;
+}
+
+.cancel-btn:hover {
+	background-color: #dddddd !important;
+}
+
+.delete-btn {
+	background-color:#993300 !important;
+}
+
+.delete-btn:hover {
+	background-color:#773300 !important;
+}

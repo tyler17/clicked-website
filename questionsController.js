@@ -105,6 +105,7 @@ cs194hApp.controller('QuestionsController', ['$scope', function($scope) {
 	            result.tim = results[i].get("TimeSent");
 	            result.dat = results[i].get("DateSent");
 	            result.cc = results[i].get("ClassID");
+	            result.resp = results[i].get("teacherResponse"); //HERE!!! STOPPED PART WAY THROUGH
 	            result.answered = results[i].get("Addressed");
 	            var studentsWhoLiked = results[i].get("studentsWhoLiked");
 	            result.numLiked = 0;
