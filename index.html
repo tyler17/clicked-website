@@ -58,7 +58,8 @@
                             </div>
                             <div class="col-md-6"  style="text-align:center">
                                 <span style="text-align:center"class="site-heading-clicked">
-                                    <span style="font-size:40px"><b>{{teacherName}}'s Class List</b></span>
+                                    <span ng-show="(!container.selectClass)" style="font-size:40px"><b>{{teacherName}}'s Class List</b></span>
+                                    <span ng-show="(container.selectClass)" style="font-size:40px"><b>{{container.selectClass.name}}</b></span>
                                 </span>
                             </div>
                             <div class="col-md-3" style="text-align:right">
@@ -212,7 +213,7 @@
                                         <button style="float: right" ng-hide="q.answered" ng-click="addressQuestion(q)" class="btn btn">Mark As Addressed</button>
                                     </p>
                                     <h3 ng-hide="!q.answered">Teacher Response: {{q.resp}} </h3>
-                                    <input ng-hide="q.answered" style="width:100%" type="text" placeholder="Send a response" name="teacher_response" ng-model="q.resp"></input>
+                                    <input ng-hide="q.answered" style="width:100%; color:black;" type="text" placeholder="Send a response" name="teacher_response" ng-model="q.resp"></input>
                                 </div>
 
                             </div>

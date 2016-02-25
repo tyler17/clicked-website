@@ -36,14 +36,15 @@ cs194hApp.controller('QuestionsController', ['$scope', function($scope) {
 	}          
 
 	$scope.addressQuestion = function(q){
-	    parseQ = q.parseObject;
+		console.log(q);
+	    var parseQ = q.parseObject;
+	  	parseQ.set("Addressed", true);
 	    parseQ.save(null, {
 	        success: function(parseQ){
-	            parseQ.set("Addressed", true);
-	            parseQ.save();
+	        	console.log("success marked addressed");
+	        	getQuestions();
 	        }
 	    });
-
 	}
 
 	$scope.changeFilt = function(filt) {
