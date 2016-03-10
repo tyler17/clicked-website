@@ -136,7 +136,12 @@ cs194hApp.controller('QuestionsController', ['$scope', function($scope) {
 	                    $scope.questions.push(result);
 	                }
 	            }*/
+	            if($scope.container.selectClass) {
+	            	$scope.curFilt.name = $scope.container.selectClass.name;
+	            	$scope.curFilt.id = $scope.container.selectClass.id;
+	            }
 	            $scope.changeFilt($scope.curFilt);
+
 	            
 	        }
 	        $scope.$apply();
@@ -181,5 +186,12 @@ cs194hApp.controller('QuestionsController', ['$scope', function($scope) {
 	    console.log("true");
 	    changeView(true);
     }  
+    if($scope.container.selectClass) {
+    	console.log("RIGHT EHREHR");
+		$scope.curFilt.name = $scope.container.selectClass.name;
+		$scope.curFilt.id = $scope.container.selectClass.id;
+		console.log($scope.curFilt);
+	}
+	$scope.changeFilt($scope.curFilt);
 }]);
 
